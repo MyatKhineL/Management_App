@@ -42,6 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function department(){
+        return $this->belongsTo(Department::class,'department_id','id');
+    }
+
     public function profile_img_path()
     {
         if ($this->profile_photo) {

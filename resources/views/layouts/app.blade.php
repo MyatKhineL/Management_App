@@ -84,7 +84,11 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <!-- Laravel Javascript Validation -->
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/javalidation.js') }}"></script>
+
+{{--    <script type="text/javascript" src="{{ asset('dashboard/assets/bundles/lib.vendor.bundle.js')}}"></script>--}}
+
 
     <!-- Page Specific JS File -->
     @yield('specific-js')

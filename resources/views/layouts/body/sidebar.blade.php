@@ -21,12 +21,12 @@
                 class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-solid fa-users"></i>
-                    <span>Manage User</span>
+                    <span>Manage Employee</span>
                 </a>
                 <ul class="dropdown-menu">
-{{--                    <x-menu-item link="{{ route('user.index') }}">Users</x-menu-item>--}}
+                    <x-menu-item link="{{route('employee.index')}}">Employees</x-menu-item>
 
-{{--                    <x-menu-item link="{{ route('user.create') }}">Create User</x-menu-item>--}}
+                    <x-menu-item link="{{route('employee.create')}}">Create User</x-menu-item>
                 </ul>
             </li>
 

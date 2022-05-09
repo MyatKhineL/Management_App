@@ -34,11 +34,11 @@
                                 <form method="POST" action="{{ route('login') }}" class="needs-validation">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" name="email"
+                                        <label for="phone">Phone</label>
+                                        <input id="phone" type="number"
+                                            class="form-control @error('phone') is-invalid @enderror" name="phone"
                                             tabindex="1" required autofocus>
-                                        @error('email')
+                                        @error('phone')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
