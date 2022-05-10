@@ -1486,3 +1486,19 @@ div.dataTables_wrapper div.dataTables_paginate {
   background-color: white;
   border-color: #ced4da;
 }
+
+.action-icon a {
+  padding: 5px;
+  background: #eee;
+  border-radius: 5px;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  margin: 3px;
+}
+
+.preview_img {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}

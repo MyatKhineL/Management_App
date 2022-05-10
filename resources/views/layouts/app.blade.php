@@ -70,7 +70,7 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js    "></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
 
     <!-- Mark JS -->
     <script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
@@ -86,6 +86,7 @@
     <!-- Laravel Javascript Validation -->
 {{--    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/javalidation.js') }}"></script>
+
 
 {{--    <script type="text/javascript" src="{{ asset('dashboard/assets/bundles/lib.vendor.bundle.js')}}"></script>--}}
 
