@@ -105,27 +105,28 @@
 
                                     </div>
                                     <div class="form-group mt-3">
-                                        <label>Profile Image</label>
-                                        <input type="file" name="pf-image" class="form-control p-1" value="{{old('pf-image')}}" id="pf-image">
-                                        <div class="preview_img">
-
-                                        </div>
-                                        @error('pf-image')
+                                        <label>Address</label>
+                                        <textarea class="form-control" name="address" rows="">{{old('address')}}</textarea>
+                                        @error('address')
                                         <span class="text-danger">*{{$message}}</span>
                                         @enderror
-
                                     </div>
 
 
 
                                 </div>
                                 <div class="col-12">
+
                                     <div class="form-group mt-3">
-                                        <label>Address</label>
-                                        <textarea class="form-control" name="address" rows="">{{old('address')}}</textarea>
-                                        @error('address')
+                                        <label>Profile Image</label>
+                                        <input type="file" name="profile_img" class="form-control p-1" value="{{old('pf-image')}}" id="pf-image">
+                                        <div class="preview_img">
+
+                                        </div>
+                                        @error('profile_img')
                                         <span class="text-danger">*{{$message}}</span>
                                         @enderror
+
                                     </div>
                                 </div>
 
@@ -168,7 +169,7 @@
                    let file_length = document.getElementById('pf-image').files.length;
                    $('.preview_img').html('');
                    for(let i=0;i<file_length;i++){
-                       $('.preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}" />`);
+                       $('.preview_img').append(`<img  src="${URL.createObjectURL(event.target.files[i])}" class="preview_img mt-2" />`);
                    }
 
                })

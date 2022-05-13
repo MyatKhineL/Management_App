@@ -1498,7 +1498,16 @@ div.dataTables_wrapper div.dataTables_paginate {
 }
 
 .preview_img {
-  width: 100px;
-  height: 100px;
+  width: 100px !important;
+  height: 100px !important;
   border-radius: 5px;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+  border: 1px solid #f2f4f6;
+  outline: 1px solid #f2f4f6;
+  padding: 3px;
 }

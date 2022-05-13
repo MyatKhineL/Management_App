@@ -6,7 +6,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{route('employee.update',$employee->id)}}" method="post" id="createform">
+                        <form action="{{route('employee.update',$employee->id)}}" method="post" id="createform" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="row">
@@ -114,6 +114,21 @@
                                     </div>
 
                                 </div>
+                                <div class="col-12">
+                                    <div class="form-group mt-3">
+                                        <label>Profile Image</label>
+                                        <input type="file" name="profile_img" class="form-control p-1" value="{{old('profile_img')}}" id="pf-image">
+                                        <div class="preview_img">
+                                          @if($employee->profile_img)
+                                              <img src="{{$employee->profile_img_path()}}" width="100px" class="mt-2">
+                                          @endif
+                                        </div>
+                                        @error('profile_img')
+                                        <span class="text-danger">*{{$message}}</span>
+                                        @enderror
+
+                                    </div>
+                                </div>
 
                             </div>
 
@@ -150,6 +165,14 @@
                     "format":"YYYY-MM-DD",
                 }
             });
+            $('#pf-image').on('change',function (){
+                let file_length = document.getElementById('pf-image').files.length;
+                $('.preview_img').html('');
+                for(let i=0;i<file_length;i++){
+                    $('.preview_img').append(`<img  src="${URL.createObjectURL(event.target.files[i])}" class="preview_img mt-2" />`);
+                }
+
+            })
         })
     </script>
 @endsection

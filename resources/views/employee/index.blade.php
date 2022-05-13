@@ -29,7 +29,7 @@
 @section('scripts')
     <script>
         $(document).ready(function (){
-            $('.Datatable').DataTable({
+          var table =  $('.Datatable').DataTable({
                 processing:true,
                 serverSide:true,
                 responsive:true,
@@ -79,7 +79,36 @@
                     // "processing":"<img>"
                 }
             })
+
+        $(document).on('click','.delete-btn',function (e){
+            e.preventDefault();
+            var id = $(this).data('id');
+
+            Swal.fire({
+                title: 'Are you sure to delete?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        method:"DELETE",
+                        url:`/employee/${id}`,
+                    }).done(function (res){
+                        table.ajax().reload();
+                    });
+
+
+                }
+            })
+
         });
+        });
+
+
         @if(session('create'))
         Swal.fire({
             title:'Successfully created',
@@ -94,6 +123,7 @@
             icon:'update',
         });
         @endif
+
     </script>
 @endsection
 

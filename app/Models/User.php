@@ -48,8 +48,8 @@ class User extends Authenticatable
 
     public function profile_img_path()
     {
-        if ($this->profile_photo) {
-            return asset('storage/profile/' . $this->profile_photo);
+        if ($this->profile_img) {
+            return asset('storage/photo/'.$this->profile_img);
         }
 
         return asset('default-avatar.png');

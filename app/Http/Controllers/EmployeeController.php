@@ -9,6 +9,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
 class EmployeeController extends Controller
@@ -42,9 +44,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
-
-       $request->validate([
+        $request->validate([
            'employee_id'=>'required|unique:users,employee_id',
            'name'=>'required',
            'password'=>'required',
@@ -57,12 +57,23 @@ class EmployeeController extends Controller
            'department'=>'required',
            'date_of_join'=>'required',
            'is_present'=>'required',
-           'pf_image'=>'file|mines:jpeg,png'
+           'profile_img'=>'file|mimes:jpeg,png'
 
        ]);
 
 
+
+
+
+
+
+
         $employee = new User();
+        if($request->file('profile_img')){
+            $image_name = uniqid().'.'.$request->file('profile_img')->extension();
+            $request->file('profile_img')->storeAs("public/photo",$image_name);
+        }
+
         $employee->employee_id=$request->employee_id;
         $employee->name=$request->name;
         $employee->password=Hash::make($request->password);
@@ -75,6 +86,7 @@ class EmployeeController extends Controller
         $employee->is_present=$request->is_present;
         $employee->gender=$request->gender;
         $employee->address=$request->address;
+        $employee->profile_img = $image_name;
 
 
 
@@ -121,7 +133,6 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
 
-
         $request->validate([
             'employee_id'=>'required|unique:users,employee_id,'.$id,
             'name'=>'required',
@@ -137,6 +148,9 @@ class EmployeeController extends Controller
 
         ]);
         $employee = User::findorFail($id);
+
+
+
         $employee->employee_id=$request->employee_id;
         $employee->name=$request->name;
         $employee->password=$request->password ? Hash::make($request->password) : $employee->password;
@@ -149,6 +163,16 @@ class EmployeeController extends Controller
         $employee->is_present=$request->is_present;
         $employee->gender=$request->gender;
         $employee->address=$request->address;
+        if($request->file('profile_img')){
+            $image_name = uniqid().'.'.$request->file('profile_img')->extension();
+            $request->file('profile_img')->storeAs("public/photo",$image_name);
+            $employee->profile_img = $image_name;
+        }
+
+
+
+
+
         $employee->update();
 
         return redirect()->route('employee.index')->with('update','Employee is successfully updated');
@@ -163,7 +187,10 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employee = User::findorFail($id);
+        $employee->delete();
+
+        return 'success';
     }
     public function ssd(Request $request){
         $employees = User::with('department');
@@ -185,6 +212,7 @@ class EmployeeController extends Controller
             ->addColumn('plus-icon',function ($each){
                 return null;
             })
+
             ->addColumn('action',function ($each){
                 $edit_icon = '<a href="'.route('employee.edit',$each->id).'">
                              <i class="fas fa-edit text-warning"></i>
@@ -192,7 +220,10 @@ class EmployeeController extends Controller
                 $info_icon = '<a href="'.route('employee.show',$each->id).'">
                              <i class="fas fa-info-circle text-info"></i>
                              </a>';
-                return '<div class="action-icon">'.$edit_icon.$info_icon.'</div>';
+                $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="'.$each->id.'">
+                             <i class="fas fa-trash-alt"></i>
+                             </a>';
+                return '<div class="action-icon">'.$edit_icon.$info_icon.$delete_icon.'</div>';
             })
             ->rawColumns(['is_present','action'])
             ->make(true);
