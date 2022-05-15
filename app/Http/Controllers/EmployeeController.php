@@ -195,6 +195,14 @@ class EmployeeController extends Controller
     public function ssd(Request $request){
         $employees = User::with('department');
         return Datatables::of($employees)
+            ->filterColumn('department_name',function ($query,$keyword){
+                $query->whereHas('department',function ($q1) use ($keyword){
+                    $q1->where('title','like','%'.$keyword.'%');
+                });
+            })
+            ->editColumn('profile_img',function ($each){
+                return   '<img src="'.$each->profile_img_path().'" class="thumbnail">';
+            })
             ->addColumn('department_name',function ($each){
               return   $each->department ? $each->department->title : '-';
             })
@@ -225,7 +233,7 @@ class EmployeeController extends Controller
                              </a>';
                 return '<div class="action-icon">'.$edit_icon.$info_icon.$delete_icon.'</div>';
             })
-            ->rawColumns(['is_present','action'])
+            ->rawColumns(['is_present','action','profile_img'])
             ->make(true);
     }
 }

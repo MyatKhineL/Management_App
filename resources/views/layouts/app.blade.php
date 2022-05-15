@@ -106,6 +106,18 @@
         @include('components.create-alert')
     @endauth
 </body>
+{{--<script>--}}
+{{--    let token = document.head.querySelector('meta[name="csrf-token"]');--}}
+{{--    if (token) {--}}
+{{--        $.ajaxSetup({--}}
+{{--            headers: {--}}
+{{--                "X-CSRF-TOKEN": token.content,--}}
+{{--            },--}}
+{{--        });--}}
+{{--    } else {--}}
+{{--        console.log("csrf token not found");--}}
+{{--    }--}}
+{{--</script>--}}
 
 <!-- index-0.html  Tue, 07 Jan 2020 03:35:42 GMT -->
 

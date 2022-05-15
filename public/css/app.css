@@ -1452,8 +1452,8 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 }
 
 mark {
-  background: orange;
-  color: black;
+  background: #7a58ad;
+  color: white;
 }
 
 .custom-form .form-control[readonly] {
@@ -1510,4 +1510,10 @@ div.dataTables_wrapper div.dataTables_paginate {
   border: 1px solid #f2f4f6;
   outline: 1px solid #f2f4f6;
   padding: 3px;
+}
+
+.thumbnail {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
 }
