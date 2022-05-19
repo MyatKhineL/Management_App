@@ -24,11 +24,64 @@
                     <span>Manage Employee</span>
                 </a>
                 <ul class="dropdown-menu">
+
                     <x-menu-item link="{{route('employee.index')}}">Employees</x-menu-item>
 
                     <x-menu-item link="{{route('employee.create')}}">Create User</x-menu-item>
                 </ul>
             </li>
+            <li
+                class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                    <i class="fas fa-solid fa-image-portrait"></i>
+                    <span>Manage Profile</span>
+                </a>
+                <ul class="dropdown-menu">
+
+                    <x-menu-item link="{{route('profile')}}">Profile</x-menu-item>
+
+                </ul>
+            </li>
+            <li
+                class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                    <i class="fas fa-solid fa-sitemap"></i>
+                    <span>Manage Department</span>
+                </a>
+                <ul class="dropdown-menu">
+
+                    <x-menu-item link="{{route('department.index')}}">Department</x-menu-item>
+
+                    <x-menu-item link="{{route('department.create')}}">Create department</x-menu-item>
+                </ul>
+            </li>
+            <li
+                class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                    <i class="fas fa-solid fa-pie-chart"></i>
+                    <span>Manage Role</span>
+                </a>
+                <ul class="dropdown-menu">
+
+                    <x-menu-item link="{{route('role.index')}}">Role</x-menu-item>
+
+                    <x-menu-item link="{{route('role.create')}}">Create role</x-menu-item>
+                </ul>
+            </li>
+            <li
+                class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                    <i class="fas fa-solid fa-shield-alt"></i>
+                    <span>Manage Permission</span>
+                </a>
+                <ul class="dropdown-menu">
+
+                    <x-menu-item link="{{route('permission.index')}}">Role</x-menu-item>
+
+                    <x-menu-item link="{{route('permission.create')}}">Create role</x-menu-item>
+                </ul>
+            </li>
+
 
             <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
                 <a href="https://getcodiepie.com/docs" onclick="document.getElementById('logOut').submit()"

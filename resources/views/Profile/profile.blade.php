@@ -1,7 +1,4 @@
 @extends('layouts.app')
-
-@section('content')
-    @extends('layouts.app')
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -86,5 +83,3 @@
 @endsection
 
 
-
-@endsection
