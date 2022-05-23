@@ -77,6 +77,17 @@
                                         </select>
                                     </div>
                                     <div class="form-group mt-3">
+                                        <label>Role or Designation</label>
+                                        <select name="role[]" class="form-control select-cus" value="{{old('role')}}" multiple>
+                                            @foreach($roles as $role)
+                                                <option value="{{$role->id}}">{{$role->name}}</option>
+                                            @endforeach
+                                            @error('role')
+                                            <span class="text-danger">*{{$message}}</span>
+                                            @enderror
+                                        </select>
+                                    </div>
+                                    <div class="form-group mt-3">
                                         <label>Date of Join</label>
                                         <input type="text" name="date_of_join" class="form-control date_of_join" value="">
                                         @error('date_of_join')
@@ -147,6 +158,10 @@
 {{--    {!! JsValidator::formRequest('App\Http\Requests\StoreEmployee','#createform')!!}--}}
        <script>
            $(document).ready(function (){
+               $('.select-cus').select2();
+               // $( ".select-cus" ).select2({
+               //     theme: "bootstrap"
+               // });
                $('.birthday').daterangepicker({
                    "singleDatePicker":true,
                    "autoApply":true,

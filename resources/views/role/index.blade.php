@@ -12,6 +12,7 @@
                    <thead>
 
                          <th>Role Name</th>
+                         <th>Permission</th>
                          <th>Action</th>
                          <th class="hidden no-sort no-search">Updated at</th>
 
@@ -32,15 +33,16 @@
                 columns: [
 
                     {data: 'name', name: 'name'},
+                    {data: 'permissions', name: 'permissions'},
                     {data: 'action', name: 'action'},
                     {data: 'updated_at', name: 'updated_at'}
 
 
                 ],
-                order: [[2, "desc"]],
+                order: [[3, "desc"]],
                 columnDefs: [
                     {
-                        "targets": [2],
+                        "targets": [3],
                         "visible": false
                     },
                     {

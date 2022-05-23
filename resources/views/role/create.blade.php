@@ -19,11 +19,32 @@
                                         @enderror
 
                                     </div>
+                                </div>
+
+                                    <p>Permission</p>
+                                    <div class="row">
+                                        @foreach($permissions as $p)
+                                            <div class="col-md-3 col-6">
+                                                <div class="form-group mt-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="permissions[]" type="checkbox" value="{{$p->name}}"  multiple id="checkbox_{{$p->id}}">
+                                                        <label class="form-check-label pt-1" for="checkbox_{{$p->id}}">
+                                                            {{$p->name}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+
+
+
                                     <button type="submit" class="btn btn-primary">Confirm</button>
 
 
 
-                                </div>
+
                         </form>
 
                     </div>

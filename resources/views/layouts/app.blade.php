@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="{{ asset('dashboard/assets/css/style.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard/assets/css/components.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="select2.css">
+    <link rel="stylesheet" href="select2-bootstrap.css">
     @yield('theme')
 </head>
 
@@ -76,6 +78,9 @@
     <script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <!-- JS Libraies -->
     <script src="{{ asset('dashboard/assets/modules/summernote/summernote-bs4.js') }}"></script>
     <script src="{{ asset('dashboard/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
@@ -106,18 +111,19 @@
         @include('components.create-alert')
     @endauth
 </body>
-{{--<script>--}}
-{{--    let token = document.head.querySelector('meta[name="csrf-token"]');--}}
-{{--    if (token) {--}}
-{{--        $.ajaxSetup({--}}
-{{--            headers: {--}}
-{{--                "X-CSRF-TOKEN": token.content,--}}
-{{--            },--}}
-{{--        });--}}
-{{--    } else {--}}
-{{--        console.log("csrf token not found");--}}
-{{--    }--}}
-{{--</script>--}}
+<script>
+    // let token = document.head.querySelector('meta[name="csrf-token"]');
+    // if (token) {
+    //     $.ajaxSetup({
+    //         headers: {
+    //             "X-CSRF-TOKEN": token.content,
+    //         },
+    //     });
+    // } else {
+    //     console.log("csrf token not found");
+    // }
+
+</script>
 
 <!-- index-0.html  Tue, 07 Jan 2020 03:35:42 GMT -->
 

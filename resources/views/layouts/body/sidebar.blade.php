@@ -76,9 +76,9 @@
                 </a>
                 <ul class="dropdown-menu">
 
-                    <x-menu-item link="{{route('permission.index')}}">Role</x-menu-item>
+                    <x-menu-item link="{{route('permission.index')}}">Permission</x-menu-item>
 
-                    <x-menu-item link="{{route('permission.create')}}">Create role</x-menu-item>
+                    <x-menu-item link="{{route('permission.create')}}">Create permission</x-menu-item>
                 </ul>
             </li>
 

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
@@ -33,8 +34,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-
-        return view('role.create');
+        $permissions = Permission::all();
+        return view('role.create',compact('permissions'));
     }
 
     /**
@@ -45,6 +46,9 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
         $request->validate([
            'name'=>'required',
         ]);
@@ -52,6 +56,7 @@ class RoleController extends Controller
         $role = new Role();
         $role->name = $request->name;
         $role->save();
+        $role->givePermissionTo($request->permissions);
 
         return redirect()->route('role.index')->with('create','Role is successfully Created');
 
@@ -80,7 +85,9 @@ class RoleController extends Controller
     {
 
         $role = Role::findorFail($id);
-        return view('role.edit',compact('role'));
+        $old_permissions = $role->permissions->pluck('id')->toArray();
+        $permissions = Permission::all();
+        return view('role.edit',compact('role','permissions','old_permissions'));
     }
 
     /**
@@ -93,12 +100,20 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
 
+
+
         $request->validate([
             'name'=>'required',
         ]);
         $role = Role::findorFail($id);
         $role->name = $request->name;
         $role->update();
+
+        $old_permissions = $role->permissions->pluck('name')->toArray();
+
+        $role->revokePermissionTo($old_permissions );
+
+        $role->givePermissionTo($request->permissions);
 
         return redirect()->route('role.index')->with('update','Role is successfully updated');
 
@@ -120,6 +135,13 @@ class RoleController extends Controller
     public function ssd(Request $request){
         $roles = Role::query();
         return Datatables::of($roles)
+            ->addColumn('permissions',function ($each){
+                $output = '';
+                foreach($each->permissions as $p){
+                    $output .= '<span class="badge bg-success text-white m-1">'.$p->name.'</span>';
+                }
+                return $output;
+            })
             ->addColumn('action',function ($each){
                 $edit_icon = '<a href="'.route('role.edit',$each->id).'">
                              <i class="fas fa-edit text-warning"></i>
@@ -129,7 +151,7 @@ class RoleController extends Controller
                              </a>';
                 return '<div class="action-icon">'.$edit_icon.$delete_icon.'</div>';
             })
-            ->rawColumns(['action',])
+            ->rawColumns(['action','permissions'])
             ->make(true);
     }
 }

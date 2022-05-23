@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
 class EmployeeController extends Controller
@@ -32,8 +33,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        $roles = Role::all();
         $departments = Department::orderBy('title')->get();
-        return view('employee.create',compact('departments'));
+        return view('employee.create',compact('departments','roles'));
     }
 
     /**
