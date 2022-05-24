@@ -62,6 +62,14 @@
                </div>
                <div class="col-md-6">
                    <div class="mb-3">
+                       <p class="mb-1"><i class="fas fa-road-lock"></i>Role</p>
+                       @foreach($employee->roles as $r)
+                           <p class="text-muted mb-1">{{$r->name}}</p>
+                       @endforeach
+                   </div>
+               </div>
+               <div class="col-md-6">
+                   <div class="mb-3">
                        <p class="mb-1"><i class="fas fa-dot-circle-o"></i>Date of join</p>
                        <p class="text-muted mb-1">{{$employee->date_of_join}}</p>
                    </div>

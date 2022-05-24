@@ -1,7 +1,4 @@
 @extends('layouts.app')
-
-@section('content')
-    @extends('layouts.app')
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -75,16 +72,18 @@
                         <p class="text-muted mb-1">{{$employee->is_present == 1 ? 'present' : 'No'}}</p>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <p class="mb-1"><i class="fas fa-road-lock"></i>Role</p>
+                        @foreach($employee->roles as $r)
+                            <p class="text-muted mb-1">{{$r->name}}</p>
+                        @endforeach
+                    </div>
+                </div>
+
 
             </div>
         </div>
 
     </div>
-@endsection
-@section('scripts')
-
-@endsection
-
-
-
 @endsection

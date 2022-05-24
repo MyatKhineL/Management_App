@@ -78,9 +78,9 @@
                                     </div>
                                     <div class="form-group mt-3">
                                         <label>Role or Designation</label>
-                                        <select name="role[]" class="form-control select-cus" value="{{old('role')}}" multiple>
+                                        <select name="roles[]" class="form-control select-cus" value="{{old('role')}}" multiple>
                                             @foreach($roles as $role)
-                                                <option value="{{$role->id}}">{{$role->name}}</option>
+                                                <option value="{{$role->name}}">{{$role->name}}</option>
                                             @endforeach
                                             @error('role')
                                             <span class="text-danger">*{{$message}}</span>

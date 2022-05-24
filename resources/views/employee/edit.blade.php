@@ -78,6 +78,17 @@
                                         </select>
                                     </div>
                                     <div class="form-group mt-3">
+                                        <label>Role or Designation</label>
+                                        <select name="roles[]" class="form-control select-cus" value="{{old('role')}}" multiple>
+                                            @foreach($roles as $role)
+                                                <option value="{{$role->name}}" @if(in_array($role->id,$old_roles)) selected @endif>{{$role->name}}</option>
+                                            @endforeach
+                                            @error('role')
+                                            <span class="text-danger">*{{$message}}</span>
+                                            @enderror
+                                        </select>
+                                    </div>
+                                    <div class="form-group mt-3">
                                         <label>Date of Join</label>
                                         <input type="text" name="date_of_join" class="form-control date_of_join" value="{{$employee->date_of_join}}">
                                         @error('date_of_join')

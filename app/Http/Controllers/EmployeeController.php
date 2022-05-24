@@ -93,6 +93,8 @@ class EmployeeController extends Controller
 
 
         $employee->save();
+        $employee->syncRoles($request->roles);
+
 
         return redirect()->route('employee.index')->with('create','Employee is successfully Created');
 
@@ -122,7 +124,9 @@ class EmployeeController extends Controller
     {
         $departments = Department::orderBy('title')->get();
         $employee = User::findorFail($id);
-        return view('employee.edit',compact('employee','departments'));
+        $old_roles = $employee->roles->pluck('id')->toArray();
+        $roles = Role::all();
+        return view('employee.edit',compact('employee','departments','roles','old_roles'));
     }
 
     /**
@@ -176,7 +180,7 @@ class EmployeeController extends Controller
 
 
         $employee->update();
-
+        $employee->syncRoles($request->roles);
         return redirect()->route('employee.index')->with('update','Employee is successfully updated');
 
     }
@@ -208,6 +212,13 @@ class EmployeeController extends Controller
             ->addColumn('department_name',function ($each){
               return   $each->department ? $each->department->title : '-';
             })
+            ->addColumn('role_name',function ($each){
+                $output = '';
+                foreach ($each->roles as $role){
+                    $output .='<span class="badge bg-info text-white m-1 ">'.$role->name.'</span>';
+                };
+                return $output;
+            })
             ->editColumn('is_present',function ($each){
                 if($each->is_present == 1){
                     return '<span class="badge badge-pill badge-success ">Present</span>';
@@ -223,6 +234,7 @@ class EmployeeController extends Controller
                 return null;
             })
 
+
             ->addColumn('action',function ($each){
                 $edit_icon = '<a href="'.route('employee.edit',$each->id).'">
                              <i class="fas fa-edit text-warning"></i>
@@ -235,7 +247,10 @@ class EmployeeController extends Controller
                              </a>';
                 return '<div class="action-icon">'.$edit_icon.$info_icon.$delete_icon.'</div>';
             })
-            ->rawColumns(['is_present','action','profile_img'])
+            ->rawColumns(['is_present','action','profile_img','role_name'])
             ->make(true);
     }
+
+
+
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\HomeController;
 
 
 
@@ -27,7 +28,8 @@ Route::middleware('auth')->group(function (){
 
     Route::resource('permission',PermissionController::class);
     Route::get('/permission/datatable/ssd',[PermissionController::class,'ssd']);
+
 });
 
 
-Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
+

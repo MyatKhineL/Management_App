@@ -16,6 +16,7 @@
                          <th>Phone</th>
                          <th>Email</th>
                          <th>Department</th>
+                         <th>Role</th>
                          <th>Is Present</th>
                          <th>Action</th>
                          <th class="hidden no-sort no-search">Updated at</th>
@@ -41,16 +42,17 @@
                     {data: 'phone', name: 'phone'},
                     {data: 'email', name: 'email'},
                     {data: 'department_name', name: 'department_name'},
+                    {data: 'role_name', name:'role_name'},
                     {data: 'is_present', name: 'is_present'},
                     {data: 'action', name: 'action'},
                     {data: 'updated_at', name: 'updated_at'},
 
 
                 ],
-                order: [[8, "desc"]],
+                order: [[9, "desc"]],
                 columnDefs: [
                     {
-                        "targets": [8],
+                        "targets": [9],
                         "visible": false
                     },
                     {

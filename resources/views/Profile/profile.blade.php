@@ -26,6 +26,14 @@
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
+                        <p class="mb-1"><i class="fas fa-road-lock"></i>Role</p>
+                        @foreach($employee->roles as $r)
+                            <p class="text-muted mb-1">{{$r->name}}</p>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
                         <p class="mb-1"><i class="fas fa-mail-bulk"></i>Email</p>
                         <p class="text-muted mb-1">{{$employee->email}}</p>
                     </div>

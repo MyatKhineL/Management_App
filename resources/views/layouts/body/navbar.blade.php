@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg main-navbar">
     <form class="form-inline mr-auto">
         <ul class="navbar-nav mr-3">
@@ -205,15 +206,37 @@
                 <a href="features-settings.html" class="dropdown-item has-icon"><i class="fas fa-cog"></i>
                     Settings</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item has-icon text-danger" onclick="document.getElementById('logOut').submit()"><i
-                        class="fas fa-sign-out-alt"></i>
-                    Logout
-                </a>
+
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                <i class="fa-solid fa-right-from-bracket text-danger me-1"></i>
+                <span class="">Logout</span>
+            </a>
+
 
                 {{-- <form class="d-none" action="{{ route('admin.logout') }}" id="logOut" method="POST">
                     @csrf
                 </form> --}}
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
             </div>
         </li>
     </ul>
 </nav>
+
+{{--    <script>--}}
+{{--        $(document).ready(function (){--}}
+{{--            $('.logout-btn').on('click',function (){--}}
+{{--                e.preventDefault();--}}
+{{--                $.ajax({--}}
+{{--                   url:'/logout',--}}
+{{--                   type:'POST'--}}
+{{--                }).done(function (res){--}}
+{{--                    window.location.reload();--}}
+{{--                });--}}
+{{--            });--}}
+{{--        })--}}
+{{--        console.log("hrll")--}}
+{{--    </script>--}}
+

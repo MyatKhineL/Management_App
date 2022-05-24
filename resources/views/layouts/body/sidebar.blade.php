@@ -15,22 +15,28 @@
                 </ul>
             </li>
 
+
             <x-menu-title>Management</x-menu-title>
 
-            <li
-                class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
+
+            @can('view_employee')
+            <li class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-solid fa-users"></i>
                     <span>Manage Employee</span>
                 </a>
+                @can('view_employee')
                 <ul class="dropdown-menu">
 
                     <x-menu-item link="{{route('employee.index')}}">Employees</x-menu-item>
 
                     <x-menu-item link="{{route('employee.create')}}">Create User</x-menu-item>
                 </ul>
-            </li>
-            <li
+                    @endcan
+                </li>
+            @endcan
+            @can('view_profile')
+                <li
                 class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-solid fa-image-portrait"></i>
@@ -42,6 +48,8 @@
 
                 </ul>
             </li>
+            @endcan
+            @can('view_department')
             <li
                 class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
@@ -55,6 +63,8 @@
                     <x-menu-item link="{{route('department.create')}}">Create department</x-menu-item>
                 </ul>
             </li>
+            @endcan
+            @can('view_role')
             <li
                 class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
@@ -68,6 +78,8 @@
                     <x-menu-item link="{{route('role.create')}}">Create role</x-menu-item>
                 </ul>
             </li>
+            @endcan
+            @can('view_permission')
             <li
                 class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
@@ -81,6 +93,7 @@
                     <x-menu-item link="{{route('permission.create')}}">Create permission</x-menu-item>
                 </ul>
             </li>
+            @endcan
 
 
             <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
