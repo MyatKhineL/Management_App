@@ -23,6 +23,10 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        if(!auth()->user()->can('view_employee')){
+            abort(403);
+        }
+
         return view('employee.index');
     }
 
@@ -33,6 +37,10 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        if(!auth()->user()->can('create_employee')){
+            abort(403);
+        }
+
         $roles = Role::all();
         $departments = Department::orderBy('title')->get();
         return view('employee.create',compact('departments','roles'));
@@ -122,6 +130,10 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
+        if(!auth()->user()->can('edit_employee')){
+            abort(403);
+        }
+
         $departments = Department::orderBy('title')->get();
         $employee = User::findorFail($id);
         $old_roles = $employee->roles->pluck('id')->toArray();
@@ -138,6 +150,9 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!auth()->user()->can('update_employee')){
+            abort(403);
+        }
 
         $request->validate([
             'employee_id'=>'required|unique:users,employee_id,'.$id,
@@ -193,12 +208,21 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
+        if(!auth()->user()->can('delete_employee')){
+            abort(403);
+        }
+
         $employee = User::findorFail($id);
         $employee->delete();
 
         return 'success';
     }
     public function ssd(Request $request){
+
+        if(!auth()->user()->can('view_employee')){
+            abort(403);
+        }
+
         $employees = User::with('department');
         return Datatables::of($employees)
             ->filterColumn('department_name',function ($query,$keyword){
@@ -206,6 +230,7 @@ class EmployeeController extends Controller
                     $q1->where('title','like','%'.$keyword.'%');
                 });
             })
+
             ->editColumn('profile_img',function ($each){
                 return   '<img src="'.$each->profile_img_path().'" class="thumbnail">';
             })
@@ -236,15 +261,30 @@ class EmployeeController extends Controller
 
 
             ->addColumn('action',function ($each){
-                $edit_icon = '<a href="'.route('employee.edit',$each->id).'">
+                $edit_icon = '';
+                $delete_icon = '';
+                $info_icon = '';
+
+                if(auth()->user()->can('edit_employee')){
+                    $edit_icon = '<a href="'.route('employee.edit',$each->id).'">
                              <i class="fas fa-edit text-warning"></i>
                              </a>';
-                $info_icon = '<a href="'.route('employee.show',$each->id).'">
-                             <i class="fas fa-info-circle text-info"></i>
-                             </a>';
-                $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="'.$each->id.'">
+                }
+                if(auth()->user()->can('delete_employee')){
+                    $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="'.$each->id.'">
                              <i class="fas fa-trash-alt"></i>
                              </a>';
+                }
+                if(auth()->user()->can('show_employee')){
+                    $info_icon = '<a href="'.route('employee.show',$each->id).'">
+                             <i class="fas fa-info-circle text-info"></i>
+                             </a>';
+                }
+
+
+
+
+
                 return '<div class="action-icon">'.$edit_icon.$info_icon.$delete_icon.'</div>';
             })
             ->rawColumns(['is_present','action','profile_img','role_name'])

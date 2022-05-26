@@ -2,11 +2,13 @@
 @section('content')
 
        <div class="card">
+           @can('create_employee')
            <div>
                <a href="{{route('employee.create')}}" class="btn btn-primary m-3">
                 <i class="fas fa-plus-circle"></i>   Create Employee
                </a>
            </div>
+           @endcan
            <div class="card-body">
                <table class="table table-bordered Datatable" style="width: 100%">
                    <thead>

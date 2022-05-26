@@ -20,6 +20,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        if(!auth()->user()->can('view_permission')){
+           abort(403);
+        }
         return view('permission.index');
     }
 
@@ -118,12 +121,21 @@ class PermissionController extends Controller
         $permissions = Permission::query();
         return Datatables::of($permissions)
             ->addColumn('action',function ($each){
-                $edit_icon = '<a href="'.route('permission.edit',$each->id).'">
+                $edit_icon='';
+                $delete_icon='';
+                if(auth()->user()->can('edit_permission')){
+                    $edit_icon = '<a href="'.route('permission.edit',$each->id).'">
                              <i class="fas fa-edit text-warning"></i>
                              </a>';
-                $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="'.$each->id.'">
+                }
+                if(auth()->user()->can('delete_permission')){
+                    $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="'.$each->id.'">
                              <i class="fas fa-trash-alt"></i>
                              </a>';
+                }
+
+
+
                 return '<div class="action-icon">'.$edit_icon.$delete_icon.'</div>';
             })
             ->rawColumns(['action',])

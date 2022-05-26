@@ -22,6 +22,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
+        if(!auth()->user()->can('view_department')){
+            abort(403);
+        }
         return view('department.index');
     }
 
@@ -33,6 +36,9 @@ class DepartmentController extends Controller
     public function create()
     {
 
+        if(!auth()->user()->can('create_department')){
+            abort(403);
+        }
         return view('department.create');
     }
 
@@ -44,6 +50,8 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $request->validate([
            'title'=>'required|min:3',
         ]);
@@ -85,6 +93,10 @@ class DepartmentController extends Controller
     public function edit($id)
     {
 
+        if(!auth()->user()->can('edit_department')){
+            abort(403);
+        }
+
         $department = Department::findorFail($id);
         return view('department.edit',compact('department',));
     }
@@ -98,6 +110,10 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if(!auth()->user()->can('update_department')){
+            abort(403);
+        }
 
         $request->validate([
             'title'=>'required',
@@ -118,21 +134,37 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
+        if(!auth()->user()->can('delete_department')){
+            abort(403);
+        }
+
         $department = Department::findorFail($id);
         $department->delete();
 
         return 'success';
     }
     public function ssd(Request $request){
+        if(!auth()->user()->can('view_department')){
+            abort(403);
+        }
         $departments = Department::query();
         return Datatables::of($departments)
             ->addColumn('action',function ($each){
-                $edit_icon = '<a href="'.route('department.edit',$each->id).'">
+                $edit_icon = '';
+                $delete_icon = '';
+                if(auth()->user()->can('edit_department')){
+                    $edit_icon = '<a href="'.route('department.edit',$each->id).'">
                              <i class="fas fa-edit text-warning"></i>
                              </a>';
-                $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="'.$each->id.'">
+                }
+                if(auth()->user()->can('delete_department')){
+                    $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="'.$each->id.'">
                              <i class="fas fa-trash-alt"></i>
                              </a>';
+                }
+
+
+
                 return '<div class="action-icon">'.$edit_icon.$delete_icon.'</div>';
             })
             ->rawColumns(['action',])

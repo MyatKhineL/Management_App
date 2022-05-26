@@ -24,6 +24,10 @@ class RoleController extends Controller
      */
     public function index()
     {
+        if(!auth()->user()->can('view_role')){
+            abort(403);
+        }
+
         return view('role.index');
     }
 
@@ -34,6 +38,10 @@ class RoleController extends Controller
      */
     public function create()
     {
+        if(!auth()->user()->can('create_role')){
+            abort(403);
+        }
+
         $permissions = Permission::all();
         return view('role.create',compact('permissions'));
     }
@@ -46,6 +54,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+
 
 
 
@@ -83,6 +92,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        if(!auth()->user()->can('edit_role')){
+            abort(403);
+        }
 
         $role = Role::findorFail($id);
         $old_permissions = $role->permissions->pluck('id')->toArray();
@@ -100,7 +112,9 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
 
-
+        if(!auth()->user()->can('update_role')){
+            abort(403);
+        }
 
         $request->validate([
             'name'=>'required',
@@ -127,12 +141,21 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        if(!auth()->user()->can('delete_role')){
+            abort(403);
+        }
+
         $role = Role::findorFail($id);
         $role->delete();
 
         return 'success';
     }
     public function ssd(Request $request){
+
+        if(!auth()->user()->can('view_role')){
+            abort(403);
+        }
+
         $roles = Role::query();
         return Datatables::of($roles)
             ->addColumn('permissions',function ($each){
