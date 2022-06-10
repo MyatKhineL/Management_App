@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="select2.css">
     <link rel="stylesheet" href="select2-bootstrap.css">
+
     @yield('theme')
 </head>
 
@@ -102,6 +103,7 @@
     <!-- Template JS File -->
     <script src="{{ asset('dashboard/js/scripts.js') }}"></script>
     <script src="{{ asset('dashboard/js/custom.js') }}"></script>
+
 
     @yield('scripts')
 

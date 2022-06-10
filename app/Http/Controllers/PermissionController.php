@@ -20,9 +20,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        if(!auth()->user()->can('view_permission')){
-           abort(403);
-        }
+//        if(!auth()->user()->can('view_permission')){
+//           abort(403);
+//        }
         return view('permission.index');
     }
 

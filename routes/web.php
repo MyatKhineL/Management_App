@@ -8,6 +8,8 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CompanySettingController;
+use App\Http\Controllers\CheckinCheckoutController;
 
 
 
@@ -29,7 +31,16 @@ Route::middleware('auth')->group(function (){
     Route::resource('permission',PermissionController::class);
     Route::get('/permission/datatable/ssd',[PermissionController::class,'ssd']);
 
+
+    Route::resource('company',CompanySettingController::class)
+        ->only(['edit','update','show']);
+
+
+
 });
+
+Route::get('checkin-checkout',[CheckinCheckoutController::class,'checkInCheckOut']);
+Route::post('checkin',[CheckinCheckoutController::class,'checkIn'])->name('checkin');
 
 
 

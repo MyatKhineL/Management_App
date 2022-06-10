@@ -27,6 +27,14 @@
 
                                     </div>
                                     <div class="form-group mt-3">
+                                        <label>Pin Code</label>
+                                        <input type="number" name="pin_code" class="form-control" value="{{old('pin_code',$employee->pin_code)}}">
+                                        @error('pin_code')
+                                        <span class="text-danger">*{{$message}}</span>
+                                        @enderror
+
+                                    </div>
+                                    <div class="form-group mt-3">
                                         <label>Password</label>
                                         <input type="text" name="password" class="form-control">
                                         @error('password')
@@ -34,6 +42,8 @@
                                         @enderror
 
                                     </div>
+
+
                                     <div class="form-group mt-3">
                                         <label>Phone</label>
                                         <input type="number" name="phone" class="form-control" value="{{old('phone',$employee->phone)}}">

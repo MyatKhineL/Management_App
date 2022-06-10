@@ -3,6 +3,7 @@ import Swal from "sweetalert2/dist/sweetalert2";
 
 try {
     require("bootstrap");
+    require("bootstrap-pincode-input/js/bootstrap-pincode-input")
     window.$ = window.jQuery = require("jquery");
     window.Swal = Swal;
 } catch (e) {}

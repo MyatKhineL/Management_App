@@ -23,9 +23,9 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        if(!auth()->user()->can('view_employee')){
-            abort(403);
-        }
+//        if(!auth()->user()->can('view_employee')){
+//            abort(403);
+//        }
 
         return view('employee.index');
     }
@@ -37,9 +37,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        if(!auth()->user()->can('create_employee')){
-            abort(403);
-        }
+//        if(!auth()->user()->can('create_employee')){
+//            abort(403);
+//        }
 
         $roles = Role::all();
         $departments = Department::orderBy('title')->get();
@@ -66,8 +66,9 @@ class EmployeeController extends Controller
            'address'=>'required',
            'department'=>'required',
            'date_of_join'=>'required',
-           'is_present'=>'required',
-           'profile_img'=>'file|mimes:jpeg,png'
+            'is_present'=>'required',
+            'pin_code'=>'required|min:6|max:6',
+            'profile_img'=>'file|mimes:jpeg,png'
 
        ]);
 
@@ -87,6 +88,7 @@ class EmployeeController extends Controller
         $employee->employee_id=$request->employee_id;
         $employee->name=$request->name;
         $employee->password=Hash::make($request->password);
+        $employee->pin_code=$request->pin_code;
         $employee->phone=$request->phone;
         $employee->email=$request->email;
         $employee->nrc_number=$request->nrc_number;
@@ -130,9 +132,9 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        if(!auth()->user()->can('edit_employee')){
-            abort(403);
-        }
+//        if(!auth()->user()->can('edit_employee')){
+//            abort(403);
+//        }
 
         $departments = Department::orderBy('title')->get();
         $employee = User::findorFail($id);
@@ -150,13 +152,14 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(!auth()->user()->can('update_employee')){
-            abort(403);
-        }
+//        if(!auth()->user()->can('update_employee')){
+//            abort(403);
+//        }
 
         $request->validate([
             'employee_id'=>'required|unique:users,employee_id,'.$id,
             'name'=>'required',
+            'pin_code'=>'nullable|min:6|max:6',
             'phone'=>'required|min:9|max:11|unique:users,phone,'.$id,
             'email'=>'required|email|unique:users,phone,'.$id,
             'nrc_number'=>'required',
@@ -175,6 +178,7 @@ class EmployeeController extends Controller
         $employee->employee_id=$request->employee_id;
         $employee->name=$request->name;
         $employee->password=$request->password ? Hash::make($request->password) : $employee->password;
+        $employee->pin_code=$request->pin_code;
         $employee->phone=$request->phone;
         $employee->email=$request->email;
         $employee->nrc_number=$request->nrc_number;
@@ -183,6 +187,7 @@ class EmployeeController extends Controller
         $employee->date_of_join=$request->date_of_join;
         $employee->is_present=$request->is_present;
         $employee->gender=$request->gender;
+        $employee->pin_code=$request->pin_code;
         $employee->address=$request->address;
         if($request->file('profile_img')){
             $image_name = uniqid().'.'.$request->file('profile_img')->extension();

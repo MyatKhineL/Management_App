@@ -18,6 +18,22 @@
 
             <x-menu-title>Management</x-menu-title>
 
+            @can('view_company')
+                <li class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                        <i class="fas fa-solid fa-building"></i>
+                        <span>Manage Company</span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <x-menu-item link="{{route('company.show',1)}}">Company</x-menu-item>
+
+                    </ul>
+
+                </li>
+            @endcan
+
 
             @can('view_employee')
             <li class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">
@@ -25,16 +41,17 @@
                     <i class="fas fa-solid fa-users"></i>
                     <span>Manage Employee</span>
                 </a>
-                @can('view_employee')
+
                 <ul class="dropdown-menu">
 
                     <x-menu-item link="{{route('employee.index')}}">Employees</x-menu-item>
 
                     <x-menu-item link="{{route('employee.create')}}">Create User</x-menu-item>
                 </ul>
-                    @endcan
+
                 </li>
             @endcan
+
             @can('view_profile')
                 <li
                 class="dropdown {{ Request::is('user') ? 'active' : '' }} {{ Request::is('user/create') ? 'active' : '' }}">

@@ -22,9 +22,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        if(!auth()->user()->can('view_department')){
-            abort(403);
-        }
+//        if(!auth()->user()->can('view_department')){
+//            abort(403);
+//        }
         return view('department.index');
     }
 
@@ -36,9 +36,9 @@ class DepartmentController extends Controller
     public function create()
     {
 
-        if(!auth()->user()->can('create_department')){
-            abort(403);
-        }
+//        if(!auth()->user()->can('create_department')){
+//            abort(403);
+//        }
         return view('department.create');
     }
 
